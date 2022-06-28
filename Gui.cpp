@@ -21,11 +21,11 @@ void Gui::draw(std::vector<std::vector<Object::ObjectType>> result ,WorldSize* w
 
     int x = 0, y = 0, k = 0;
 
-    Crc1.setRadius(20);                                 ///  радиус
-    Crc1.setPointCount(6);                              ///  граница
-    Crc1.setOutlineColor(sf::Color(70, 70, 70));        ///  цвет гр          /* поле */
-    Crc1.setOutlineThickness(3);                        ///  толщина границы 
-    Crc1.setFillColor(sf::Color(120, 120, 120));        ///  цвет внутри
+    Crc1.setRadius(20);                                 ///  СЂР°РґРёСѓСЃ
+    Crc1.setPointCount(6);                              ///  РіСЂР°РЅРёС†Р°
+    Crc1.setOutlineColor(sf::Color(70, 70, 70));        ///  С†РІРµС‚ РіСЂ          /* РїРѕР»Рµ */
+    Crc1.setOutlineThickness(3);                        ///  С‚РѕР»С‰РёРЅР° РіСЂР°РЅРёС†С‹ 
+    Crc1.setFillColor(sf::Color(120, 120, 120));        ///  С†РІРµС‚ РІРЅСѓС‚СЂРё
 
     sf::Event event;
     /*
@@ -62,7 +62,7 @@ void Gui::draw(std::vector<std::vector<Object::ObjectType>> result ,WorldSize* w
                 mWindow.close();
 
         }*/
-        sf::Font font;//шрифт 
+        sf::Font font;//С€СЂРёС„С‚ 
 
         if (!font.loadFromFile("111.ttf"))
         {
@@ -79,22 +79,22 @@ void Gui::draw(std::vector<std::vector<Object::ObjectType>> result ,WorldSize* w
             {
 
                 if (result[i + (w->x_draw)][j + (w->y_draw)] == Object::ObjectType::VOID)
-                    Crc1.setFillColor(sf::Color(120, 120, 120));    //  пусто + !!!!
+                    Crc1.setFillColor(sf::Color(120, 120, 120));    //  РїСѓСЃС‚Рѕ + !!!!
 
 
-                if (result[i + (w->x_draw)][j + (w->y_draw)] == Object::ObjectType::BOT)         // бот    +
+                if (result[i + (w->x_draw)][j + (w->y_draw)] == Object::ObjectType::BOT)         // Р±РѕС‚    +
                     Crc1.setFillColor(sf::Color(250, 250, 20));
 
 
-                if (result[i + (w->x_draw)][j + (w->y_draw)] == Object::ObjectType::FOOD)        // еда    +
+                if (result[i + (w->x_draw)][j + (w->y_draw)] == Object::ObjectType::FOOD)        // РµРґР°    +
                     Crc1.setFillColor(sf::Color(12, 180, 12));
 
 
-                if (result[i + (w->x_draw)][j + (w->y_draw)] == Object::ObjectType::POISON)     // яд     
+                if (result[i + (w->x_draw)][j + (w->y_draw)] == Object::ObjectType::POISON)     // СЏРґ     
                     Crc1.setFillColor(sf::Color(250, 0, 0));
 
 
-                if (result[i + (w->x_draw)][j + (w->y_draw)] == Object::ObjectType::WALL)        // стена
+                if (result[i + (w->x_draw)][j + (w->y_draw)] == Object::ObjectType::WALL)        // СЃС‚РµРЅР°
                     Crc1.setFillColor(sf::Color(70, 70, 70));
 
 
@@ -114,10 +114,10 @@ void Gui::draw(std::vector<std::vector<Object::ObjectType>> result ,WorldSize* w
                 mWindow.draw(Crc1);
                 if (w->need_to_cordinat)
                 {
-                    sf::Text text("asdfjkashjkf", font, 20);             //создаем объект текст. закидываем в объект текст строку, шрифт, размер шрифта(в пикселях);//сам объект текст (не строка)
-                    text.setStyle(sf::Text::Bold);                        //жирный и подчеркнутый текст. по умолчанию он "худой":)) и не подчеркнутый
+                    sf::Text text("asdfjkashjkf", font, 20);             //СЃРѕР·РґР°РµРј РѕР±СЉРµРєС‚ С‚РµРєСЃС‚. Р·Р°РєРёРґС‹РІР°РµРј РІ РѕР±СЉРµРєС‚ С‚РµРєСЃС‚ СЃС‚СЂРѕРєСѓ, С€СЂРёС„С‚, СЂР°Р·РјРµСЂ С€СЂРёС„С‚Р°(РІ РїРёРєСЃРµР»СЏС…);//СЃР°Рј РѕР±СЉРµРєС‚ С‚РµРєСЃС‚ (РЅРµ СЃС‚СЂРѕРєР°)
+                    text.setStyle(sf::Text::Bold);                        //Р¶РёСЂРЅС‹Р№ Рё РїРѕРґС‡РµСЂРєРЅСѓС‚С‹Р№ С‚РµРєСЃС‚. РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ РѕРЅ "С…СѓРґРѕР№":)) Рё РЅРµ РїРѕРґС‡РµСЂРєРЅСѓС‚С‹Р№
                     text.setFillColor(sf::Color::White);
-                    text.setPosition(10, 10);                    //задаем позицию текста, центр камеры
+                    text.setPosition(10, 10);                    //Р·Р°РґР°РµРј РїРѕР·РёС†РёСЋ С‚РµРєСЃС‚Р°, С†РµРЅС‚СЂ РєР°РјРµСЂС‹
 
                     text.setScale(sf::Vector2f(0.5, 0.5));
                     text.setPosition(x + 10, y + 10);
@@ -140,15 +140,15 @@ void Gui::draw_2(std::vector<std::vector<Object::ObjectType>> result, WorldSize*
 
     int x = 0, y = 0, k = 0;
 
-    Crc1.setRadius(11);                                 ///  радиус
-    Crc1.setPointCount(6);                              ///  граница
-    Crc1.setOutlineColor(sf::Color(70, 70, 70));        ///  цвет гр          /* поле */
-    Crc1.setOutlineThickness(3);                        ///  толщина границы 
-    Crc1.setFillColor(sf::Color(120, 120, 120));        ///  цвет внутри
+    Crc1.setRadius(11);                                 ///  СЂР°РґРёСѓСЃ
+    Crc1.setPointCount(6);                              ///  РіСЂР°РЅРёС†Р°
+    Crc1.setOutlineColor(sf::Color(70, 70, 70));        ///  С†РІРµС‚ РіСЂ          /* РїРѕР»Рµ */
+    Crc1.setOutlineThickness(3);                        ///  С‚РѕР»С‰РёРЅР° РіСЂР°РЅРёС†С‹ 
+    Crc1.setFillColor(sf::Color(120, 120, 120));        ///  С†РІРµС‚ РІРЅСѓС‚СЂРё
 
     sf::Event event;
 
-    sf::Font font;//шрифт 
+    sf::Font font;//С€СЂРёС„С‚ 
 
     if (!font.loadFromFile("111.ttf"))
     {
@@ -165,22 +165,22 @@ void Gui::draw_2(std::vector<std::vector<Object::ObjectType>> result, WorldSize*
         {
 
             if (result[i + (w->x_draw)][j + (w->y_draw)] == Object::ObjectType::VOID)
-                Crc1.setFillColor(sf::Color(120, 120, 120));    //  пусто + !!!!
+                Crc1.setFillColor(sf::Color(120, 120, 120));    //  РїСѓСЃС‚Рѕ + !!!!
 
 
-            if (result[i + (w->x_draw)][j + (w->y_draw)] == Object::ObjectType::BOT)         // бот    +
+            if (result[i + (w->x_draw)][j + (w->y_draw)] == Object::ObjectType::BOT)         // Р±РѕС‚    +
                 Crc1.setFillColor(sf::Color(250, 250, 20));
 
 
-            if (result[i + (w->x_draw)][j + (w->y_draw)] == Object::ObjectType::FOOD)        // еда    +
+            if (result[i + (w->x_draw)][j + (w->y_draw)] == Object::ObjectType::FOOD)        // РµРґР°    +
                 Crc1.setFillColor(sf::Color(12, 180, 12));
 
 
-            if (result[i + (w->x_draw)][j + (w->y_draw)] == Object::ObjectType::POISON)     // яд     
+            if (result[i + (w->x_draw)][j + (w->y_draw)] == Object::ObjectType::POISON)     // СЏРґ     
                 Crc1.setFillColor(sf::Color(250, 0, 0));
 
 
-            if (result[i + (w->x_draw)][j + (w->y_draw)] == Object::ObjectType::WALL)        // стена
+            if (result[i + (w->x_draw)][j + (w->y_draw)] == Object::ObjectType::WALL)        // СЃС‚РµРЅР°
                 Crc1.setFillColor(sf::Color(70, 70, 70));
 
 
@@ -200,9 +200,9 @@ void Gui::draw_2(std::vector<std::vector<Object::ObjectType>> result, WorldSize*
             mWindow.draw(Crc1);
             if (w->need_to_cordinat)
             {
-                sf::Text text("asdfjkashjkf", font,10);             //создаем объект текст. закидываем в объект текст строку, шрифт, размер шрифта(в пикселях);//сам объект текст (не строка)
-                text.setStyle(sf::Text::Bold);                        //жирный и подчеркнутый текст. по умолчанию он "худой":)) и не подчеркнутый
-                text.setFillColor(sf::Color::White);                   //задаем позицию текста, центр камеры
+                sf::Text text("asdfjkashjkf", font,10);             //СЃРѕР·РґР°РµРј РѕР±СЉРµРєС‚ С‚РµРєСЃС‚. Р·Р°РєРёРґС‹РІР°РµРј РІ РѕР±СЉРµРєС‚ С‚РµРєСЃС‚ СЃС‚СЂРѕРєСѓ, С€СЂРёС„С‚, СЂР°Р·РјРµСЂ С€СЂРёС„С‚Р°(РІ РїРёРєСЃРµР»СЏС…);//СЃР°Рј РѕР±СЉРµРєС‚ С‚РµРєСЃС‚ (РЅРµ СЃС‚СЂРѕРєР°)
+                text.setStyle(sf::Text::Bold);                        //Р¶РёСЂРЅС‹Р№ Рё РїРѕРґС‡РµСЂРєРЅСѓС‚С‹Р№ С‚РµРєСЃС‚. РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ РѕРЅ "С…СѓРґРѕР№":)) Рё РЅРµ РїРѕРґС‡РµСЂРєРЅСѓС‚С‹Р№
+                text.setFillColor(sf::Color::White);                   //Р·Р°РґР°РµРј РїРѕР·РёС†РёСЋ С‚РµРєСЃС‚Р°, С†РµРЅС‚СЂ РєР°РјРµСЂС‹
 
                 text.setScale(sf::Vector2f(0.5, 0.5));
                 text.setPosition(x + 10, y + 10);
@@ -222,7 +222,7 @@ Gui::Gui(int x, int y) :
 {
     mWindow.setVerticalSyncEnabled(true);
     mWindow.setFramerateLimit(60);
-};     ///  поле};
+};     ///  РїРѕР»Рµ};
 Gui::~Gui() 
 {
     fin.close();
@@ -238,12 +238,12 @@ std::vector<Gui::EventType> Gui::get_events()
         {
             switch (event.key.code)
             {
-                case sf::Keyboard::Key::W:
+                case sf::Keyboard::Key::S:
                 {
                     result.push_back(Gui::EventType::MOVE_UP_START);
                     break;
                 }
-                case sf::Keyboard::Key::S:
+                case sf::Keyboard::Key::W:
                 {
                     result.push_back(Gui::EventType::MOVE_DOWN_START);
                     break;
@@ -298,13 +298,13 @@ std::vector<Gui::EventType> Gui::get_events()
                     result.push_back(Gui::EventType::DRAW_GRAPH);
                     break;
                 }
-                case sf::Keyboard::Key::W:
+                case sf::Keyboard::Key::S:
                 {
                     result.push_back(Gui::EventType::MOVE_UP_END);
                     //std::cout << "W";
                     break;
                 }
-                case sf::Keyboard::Key::S:
+                case sf::Keyboard::Key::W:
                 {
                     result.push_back(Gui::EventType::MOVE_DOWN_END);
                     break;
