@@ -248,14 +248,14 @@ std::vector<Gui::EventType> Gui::get_events()
                     result.push_back(Gui::EventType::MOVE_DOWN_START);
                     break;
                 }
-                case sf::Keyboard::Key::A:
+                case sf::Keyboard::Key::D:
                 {
                     result.push_back(Gui::EventType::MOVE_LEFT_START);
                     //mWindow.setKeyRepeatEnabled(false);
                     std::cout << "Start";
                     break;
                 }
-                case sf::Keyboard::Key::D:
+                case sf::Keyboard::Key::A:
                 {
                     result.push_back(Gui::EventType::MOVE_RIGHT_START);
                     break; 
@@ -309,13 +309,13 @@ std::vector<Gui::EventType> Gui::get_events()
                     result.push_back(Gui::EventType::MOVE_DOWN_END);
                     break;
                 }
-                case sf::Keyboard::Key::A:
+                case sf::Keyboard::Key::D:
                 {
                     result.push_back(Gui::EventType::MOVE_LEFT_END);
                     std::cout << "END";
                     break;
                 }
-                case sf::Keyboard::Key::D:
+                case sf::Keyboard::Key::A:
                 {
                     result.push_back(Gui::EventType::MOVE_RIGHT_END);
                     break;
