@@ -4,9 +4,9 @@
 
 struct WorldSize
 {
-	bool otkladka = 1;
-	int x=10,y=10;
-	int amount_bot=10, amount_food=10, amount_poison=10, amount_wall=10, amount_boot_evolue=1;
+	bool otkladka = 0;
+	int x=0,y=0;
+	int amount_bot=0, amount_food=0, amount_poison=0, amount_wall=0, amount_boot_evolue=0;
 	bool make_a_pause = true, need_to_draw = true, need_to_pause = false;
 	bool q, mIsTurnedOff=false, need_to_draw_graph= false;
 	int pause_delta =100;
@@ -20,4 +20,4 @@ struct WorldSize
 };
 
 
-#endif // !SAS_HPP      
+#endif // !SAS_HPP            
