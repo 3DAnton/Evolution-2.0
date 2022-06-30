@@ -14,7 +14,7 @@ public:
 	~God();
 
 	
-	void run_2(WorldSize*);
+	int run_2(WorldSize*);
 	void run(WorldSize*);
 	std::ofstream fout;
 	void first_mes(WorldSize*);
