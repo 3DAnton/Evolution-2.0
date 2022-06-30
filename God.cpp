@@ -20,7 +20,7 @@ void God::first_mes(WorldSize* w)
 	sf::RenderWindow first_mes(sf::VideoMode(800, 600), "My window");
 	sf::Event event;
 
-	sf::Font font;//øðèôò 
+	sf::Font font;//ÑˆÑ€Ð¸Ñ„Ñ‚ 
 
 	if (!font.loadFromFile("111.ttf"))
 	{
@@ -125,7 +125,7 @@ void God::run(WorldSize* w)
 
 		for (long long pr = 0; ; ++pr)
 		{
-			if (w->need_to_draw) mWindow.draw(mWorld.getPresentation(),w);
+			if (w->need_to_draw) mWindow.draw_1(mWorld.getPresentation(),w);
 			
 			if (w->need_to_pause) for (int i = 0; i < 7e5; i++) {}
 
@@ -147,29 +147,31 @@ void God::run(WorldSize* w)
 	}
 }
 
-void God::run_2(WorldSize* w)
+int God::run_2(WorldSize* w)
 {
 	sf::VertexArray asd;
 	for (int cnt = 1, era = 0; !mWindow.isAppClosed(); )
 	{
 		if (w->need_to_zad)
 		{
-			std::cout << std::endl << " ZAAAAAAAAAAAAAAD" << std::endl;
+			//std::cout << std::endl << " ZAAAAAAAAAAAAAAD" << std::endl;
 			asd = mWindow.zad();
 			w->need_to_zad = false;
 		}
 		if (w->need_to_draw)
 		{
-			if ((w->mas_1) && (!(w->mas_2)))
-				mWindow.draw(mWorld.getPresentation(), w);
-			if ((!(w->mas_1)) && (w->mas_2))
+			if (w->mas_1)
+				mWindow.draw_1(mWorld.getPresentation(), w);
+			if (w->mas_2)
 				mWindow.draw_2(mWorld.getPresentation(), w);
+			if(w->mas_3)
+				mWindow.draw_3(mWorld.getPresentation(), w);
 		}
 		else if (w->need_to_draw_graph) mWindow.draw_graph(asd);
 
 		for (int i = 0; i < w->pause_time; i++)
 		{
-			std::vector<Gui::EventType> events = mWindow.get_events();
+			std::vector<Gui::EventType> events = mWindow.get_events(w);
 			for (int i = 0; i < events.size(); i++)
 			{
 				if (w->need_to_pause) for (int i = 0; i < 10e7; i++) {}
@@ -221,7 +223,7 @@ void God::run_2(WorldSize* w)
 					case Gui::EventType::MOVE_LEFT_START:
 					{
 						w->move_left = true;
-						std::cout << "Move";
+						//std::cout << "Move";
 						/*if ((w->y_draw - 1) >-1)
 							w->y_draw = (w->y_draw) - 1;*/
 						break;
@@ -229,7 +231,7 @@ void God::run_2(WorldSize* w)
 					case Gui::EventType::MOVE_LEFT_END:
 					{
 						w->move_left = false;
-						std::cout << "SADF";
+						//std::cout << "SADF";
 						break;
 					}
 					case Gui::EventType::MOVE_DOWN_START:
@@ -258,10 +260,38 @@ void God::run_2(WorldSize* w)
 						//std::cout << "Start";
 						break;
 					}
-					case Gui::EventType::CHANGE_SCALE:
+					case Gui::EventType::CHANGE_SCALE_UP:
 					{
-						w->mas_1 = !(w->mas_1);
-						w->mas_2 = !(w->mas_2);
+						if (w->mas_1)
+						{
+							w->mas_1 = false;
+							w->mas_2 = true;
+						}
+						else
+						{
+							if (w->mas_2)
+							{
+								w->mas_2 = false;
+								w->mas_3 = true;
+							}
+						}
+						break;
+					}
+					case Gui::EventType::CHANGE_SCALE_DOWN:
+					{
+						if (w->mas_2)
+						{
+							w->mas_2 = false;
+							w->mas_1 = true;
+						}
+						else
+						{
+							if (w->mas_3)
+							{
+								w->mas_2 = true;
+								w->mas_3 = false;
+							}
+						}
 						break;
 					}
 					case Gui::EventType::RESET_SCALE:
@@ -269,6 +299,12 @@ void God::run_2(WorldSize* w)
 						w->mas_1 = true;
 						w->mas_2 = false;
 						break;
+					}
+					case Gui::EventType::CLOSE:
+					{
+						mWindow.Close();
+						std::cout << "Evolution is close!";
+						return 1;
 					}
 				}
 			}
