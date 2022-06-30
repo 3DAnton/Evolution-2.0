@@ -29,15 +29,18 @@ public:
 		MOVE_LEFT_END=12,
 		MOVE_RIGHT_START=13,
 		MOVE_RIGHT_END=14,
-		CHANGE_SCALE=15,
-		RESET_SCALE=16
+		CHANGE_SCALE_UP=15,
+		CHANGE_SCALE_DOWN=16,
+		RESET_SCALE=17,
+		CLOSE=18
 	};
-
+	void Close();
+	void draw_3(std::vector<std::vector<Object::ObjectType>> result, WorldSize* w);
 	Gui(int x, int y);
 	~Gui();
-	std::vector<Gui::EventType> get_events();
+	std::vector<Gui::EventType> get_events(WorldSize*);
 	void draw_graph(sf::VertexArray asd);
-	void draw(std::vector<std::vector<Object::ObjectType>> result,WorldSize* w);
+	void draw_1(std::vector<std::vector<Object::ObjectType>> result,WorldSize* w);
 	sf::VertexArray zad();
 	std::ifstream fin;
 	bool isAppClosed();
