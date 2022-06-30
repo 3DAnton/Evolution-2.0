@@ -14,8 +14,92 @@
 #define HEXAGON_OTLINE_THICKNESS    5.f
 
 
+void Gui::draw_1(std::vector<std::vector<Object::ObjectType>> result, WorldSize* w)
+{
+    sf::CircleShape Crc1;
 
-void Gui::draw(std::vector<std::vector<Object::ObjectType>> result ,WorldSize* w)
+    int x = 0, y = 0, k = 0;
+
+    Crc1.setRadius(11);                                 ///  радиус
+    Crc1.setPointCount(6);                              ///  граница
+    Crc1.setOutlineColor(sf::Color(70, 70, 70));        ///  цвет гр          /* поле */
+    Crc1.setOutlineThickness(3);                        ///  толщина границы 
+    Crc1.setFillColor(sf::Color(120, 120, 120));        ///  цвет внутри
+
+    sf::Event event;
+
+    sf::Font font;//шрифт 
+
+    if (!font.loadFromFile("111.ttf"))
+    {
+        std::cout << "Font load error!\n";
+    }
+
+
+
+    sf::View view1;
+    mWindow.clear();
+
+    for (int i = 0; i < result.size() - (w->x_draw); i++) {
+        for (int j = 0; j < result[0].size() - (w->y_draw); j++)
+        {
+
+            if (result[i + (w->x_draw)][j + (w->y_draw)] == Object::ObjectType::VOID)
+                Crc1.setFillColor(sf::Color(120, 120, 120));    //  пусто + !!!!
+
+
+            if (result[i + (w->x_draw)][j + (w->y_draw)] == Object::ObjectType::BOT)         // бот    +
+                Crc1.setFillColor(sf::Color(250, 250, 20));
+
+
+            if (result[i + (w->x_draw)][j + (w->y_draw)] == Object::ObjectType::FOOD)        // еда    +
+                Crc1.setFillColor(sf::Color(12, 180, 12));
+
+
+            if (result[i + (w->x_draw)][j + (w->y_draw)] == Object::ObjectType::POISON)     // яд     
+                Crc1.setFillColor(sf::Color(250, 0, 0));
+
+
+            if (result[i + (w->x_draw)][j + (w->y_draw)] == Object::ObjectType::WALL)        // стена
+                Crc1.setFillColor(sf::Color(70, 70, 70));
+
+
+            if (result[i + (w->x_draw)][j + (w->y_draw)] == Object::ObjectType::NUN)         // 0
+                Crc1.setFillColor(sf::Color(0, 0, 0));
+
+
+
+            if (i % 2 == 1)
+                x = j * 24 + 13.5;// +19;
+
+
+            if (i % 2 == 0)
+                x = j * 24;
+
+            Crc1.setPosition(x, y);
+            mWindow.draw(Crc1);
+            if (w->need_to_cordinat)
+            {
+                sf::Text text("asdfjkashjkf", font, 10);             //создаем объект текст. закидываем в объект текст строку, шрифт, размер шрифта(в пикселях);//сам объект текст (не строка)
+                text.setStyle(sf::Text::Bold);                        //жирный и подчеркнутый текст. по умолчанию он "худой":)) и не подчеркнутый
+                text.setFillColor(sf::Color::White);                   //задаем позицию текста, центр камеры
+
+                text.setScale(sf::Vector2f(0.5, 0.5));
+                text.setPosition(x + 10, y + 10);
+                text.setString(std::to_string(i + (w->x_draw)) + " " + std::to_string(j + (w->y_draw)));
+                mWindow.draw(text);
+                text.setScale(sf::Vector2f(1, 1));
+            }
+        }
+        y = (i + 1) * 21;
+    }
+    mWindow.display();
+}
+
+
+
+
+void Gui::draw_2(std::vector<std::vector<Object::ObjectType>> result ,WorldSize* w)
 {
     sf::CircleShape Crc1;
 
@@ -134,16 +218,16 @@ void Gui::draw(std::vector<std::vector<Object::ObjectType>> result ,WorldSize* w
 
 
 
-void Gui::draw_2(std::vector<std::vector<Object::ObjectType>> result, WorldSize* w)
+void Gui::draw_3(std::vector<std::vector<Object::ObjectType>> result, WorldSize* w)
 {
     sf::CircleShape Crc1;
 
     int x = 0, y = 0, k = 0;
 
-    Crc1.setRadius(11);                                 ///  радиус
+    Crc1.setRadius(30);                                 ///  радиус
     Crc1.setPointCount(6);                              ///  граница
     Crc1.setOutlineColor(sf::Color(70, 70, 70));        ///  цвет гр          /* поле */
-    Crc1.setOutlineThickness(3);                        ///  толщина границы 
+    Crc1.setOutlineThickness(4);                        ///  толщина границы 
     Crc1.setFillColor(sf::Color(120, 120, 120));        ///  цвет внутри
 
     sf::Event event;
@@ -190,17 +274,17 @@ void Gui::draw_2(std::vector<std::vector<Object::ObjectType>> result, WorldSize*
 
 
             if (i % 2 == 1)
-                x = j * 24 + 13.5;// +19;
+                x = j *60 + 30;// +19;
 
 
             if (i % 2 == 0)
-                x = j * 24;
+                x = j * 60;
 
             Crc1.setPosition(x, y);
             mWindow.draw(Crc1);
             if (w->need_to_cordinat)
             {
-                sf::Text text("asdfjkashjkf", font,10);             //создаем объект текст. закидываем в объект текст строку, шрифт, размер шрифта(в пикселях);//сам объект текст (не строка)
+                sf::Text text("asdfjkashjkf", font, 10);             //создаем объект текст. закидываем в объект текст строку, шрифт, размер шрифта(в пикселях);//сам объект текст (не строка)
                 text.setStyle(sf::Text::Bold);                        //жирный и подчеркнутый текст. по умолчанию он "худой":)) и не подчеркнутый
                 text.setFillColor(sf::Color::White);                   //задаем позицию текста, центр камеры
 
@@ -211,10 +295,11 @@ void Gui::draw_2(std::vector<std::vector<Object::ObjectType>> result, WorldSize*
                 text.setScale(sf::Vector2f(1, 1));
             }
         }
-        y = (i + 1) * 21;
+        y = (i + 1) * 51;
     }
     mWindow.display();
 }
+
 
 //Gui::Gui(sf::RenderWindow& aWindow) :
 Gui::Gui(int x, int y) :
@@ -228,7 +313,7 @@ Gui::~Gui()
     fin.close();
 };
 
-std::vector<Gui::EventType> Gui::get_events()
+std::vector<Gui::EventType> Gui::get_events(WorldSize* w)
 {
     std::vector<Gui::EventType> result;
     sf::Event event;
@@ -268,7 +353,7 @@ std::vector<Gui::EventType> Gui::get_events()
         {
             switch (event.key.code)
             {
-                case sf::Keyboard::Key::Z :
+                case sf::Keyboard::Key::Z:
                 {
                     result.push_back(Gui::EventType::SWITCH_PAUSE);
                     break;
@@ -322,12 +407,22 @@ std::vector<Gui::EventType> Gui::get_events()
                 }
                 case sf::Keyboard::Key::M:
                 {
-                    result.push_back(Gui::EventType::CHANGE_SCALE);
+                    result.push_back(Gui::EventType::CHANGE_SCALE_UP);
+                    break;
+                }
+                case sf::Keyboard::Key::N:
+                {
+                    result.push_back(Gui::EventType::CHANGE_SCALE_DOWN);
                     break;
                 }
                 case sf::Keyboard::Key::R:
                 {
                     result.push_back(Gui::EventType::RESET_SCALE);
+                    break;
+                }
+                case sf::Keyboard::Key::Tab:
+                {
+                    result.push_back(Gui::EventType::CLOSE);
                     break;
                 }
             }
@@ -375,4 +470,8 @@ Gui::isAppClosed()
     return !mWindow.isOpen();
 }
 
+void Gui::Close()
+{
+    mWindow.close();
+}
 
