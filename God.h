@@ -17,7 +17,7 @@ public:
 	int run_2(WorldSize*);
 	void run(WorldSize*);
 	std::ofstream fout;
-	void first_mes(WorldSize*);
+	//void first_mes(WorldSize*);
 private:
 	Map mWorld;
 	Gui mWindow;

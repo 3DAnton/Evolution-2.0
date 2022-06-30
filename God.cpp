@@ -118,65 +118,36 @@ God::~God()
 	fout.close();
 };
 
-void God::run(WorldSize* w)
-{
-	for (long long n = 0;;)        // Namber // progress //
-	{
-
-		for (long long pr = 0; ; ++pr)
-		{
-			if (w->need_to_draw) mWindow.draw_1(mWorld.getPresentation(),w);
-			
-			if (w->need_to_pause) for (int i = 0; i < 7e5; i++) {}
-
-			//Pair<int> a;//= Event::mouse();
-			//std::cout << a.x << " " << a.y << '\n';
-
-			Event C;
-			C.mouse();
-
-			mWorld.makeTurn(w);
-			if (mWorld.need_to_evolve(w))
-			{
-				mWorld.evolve(w);
-				std::cout  << pr << '\n';    ///       << n   << ": " 
-				pr = 0;
-				n++;
-			}
-		}
-	}
-}
-
 int God::run_2(WorldSize* w)
 {
 	sf::VertexArray asd;
-	for (int cnt = 1, era = 0; !mWindow.isAppClosed(); )
-	{
-		if (w->need_to_zad)
+		for (int cnt = 1, era = 0; !mWindow.isAppClosed(); )
 		{
-			//std::cout << std::endl << " ZAAAAAAAAAAAAAAD" << std::endl;
-			asd = mWindow.zad();
-			w->need_to_zad = false;
-		}
-		if (w->need_to_draw)
-		{
-			if (w->mas_1)
-				mWindow.draw_1(mWorld.getPresentation(), w);
-			if (w->mas_2)
-				mWindow.draw_2(mWorld.getPresentation(), w);
-			if(w->mas_3)
-				mWindow.draw_3(mWorld.getPresentation(), w);
-		}
-		else if (w->need_to_draw_graph) mWindow.draw_graph(asd);
-
-		for (int i = 0; i < w->pause_time; i++)
-		{
-			std::vector<Gui::EventType> events = mWindow.get_events(w);
-			for (int i = 0; i < events.size(); i++)
+			if (w->need_to_graph)
 			{
-				if (w->need_to_pause) for (int i = 0; i < 10e7; i++) {}
-				switch (events[i])
+				//std::cout << std::endl << "graph" << std::endl;
+				asd = mWindow.graph();
+				w->need_to_graph = false;
+			}
+			if (w->need_to_draw)
+			{
+				if (w->mas_1)
+					mWindow.draw_1(mWorld.getPresentation(), w);
+				if (w->mas_2)
+					mWindow.draw_2(mWorld.getPresentation(), w);
+				if (w->mas_3)
+					mWindow.draw_3(mWorld.getPresentation(), w);
+			}
+			else if (w->need_to_draw_graph) mWindow.draw_graph(asd);
+
+			for (int i = 0; i < w->pause_time; i++)
+			{
+				std::vector<Gui::EventType> events = mWindow.get_events(w);
+				for (int i = 0; i < events.size(); i++)
 				{
+					if (w->need_to_pause) for (int i = 0; i < 10e7; i++) {}
+					switch (events[i])
+					{
 					case Gui::EventType::SWITCH_DRAW_MODE:
 					{
 						w->need_to_draw = !(w->need_to_draw);
@@ -185,7 +156,7 @@ int God::run_2(WorldSize* w)
 					case Gui::EventType::SWITCH_PAUSE:
 					{
 						w->mIsTurnedOff = !(w->mIsTurnedOff);
-						if(w->mIsTurnedOff) std::cout << "Evolution is pause"<<std::endl;
+						if (w->mIsTurnedOff) std::cout << "Evolution is pause" << std::endl;
 						if (!(w->mIsTurnedOff)) std::cout << "Evolution is play" << std::endl;
 						break;
 					}
@@ -203,12 +174,12 @@ int God::run_2(WorldSize* w)
 					{
 						w->need_to_draw_graph = !(w->need_to_draw_graph);
 						if (w->need_to_draw_graph)
-							w->need_to_zad = true;
+							w->need_to_graph = true;
 						w->need_to_move = !(w->need_to_move);
 						w->need_to_draw = !(w->need_to_draw);
 						break;
 					}
-					case Gui::EventType::MOVE_RIGHT_START: 
+					case Gui::EventType::MOVE_RIGHT_START:
 					{
 						w->move_right = true;
 						/*if (!((w->y_draw) + 1 >= (w->y)))
@@ -306,44 +277,75 @@ int God::run_2(WorldSize* w)
 						std::cout << "Evolution is close!";
 						return 1;
 					}
+					}
 				}
+				if (!(w->need_to_draw)) break;
+
 			}
-			if (!(w->need_to_draw)) break;
-			
-		}
-		if (w->mIsTurnedOff) continue;
-		
-		if ((w->move_up)&&((w->x_draw) - 1 > -1))
+			if (w->mIsTurnedOff) continue;
+
+			if ((w->move_up) && ((w->x_draw) - 1 > -1))
 				w->x_draw = (w->x_draw) - 1;
 
-		if ((w->move_down)&&(((w->x_draw) + 1 <= (w->x))))
+			if ((w->move_down) && (((w->x_draw) + 1 <= (w->x))))
 				w->x_draw = (w->x_draw) + 1;
 
-		if((w->move_right)&& (((w->y_draw) + 1 <= (w->y))))
-			w->y_draw = (w->y_draw) + 1;
+			if ((w->move_right) && (((w->y_draw) + 1 <= (w->y))))
+				w->y_draw = (w->y_draw) + 1;
 
-		if ((w->move_left) && ((w->y_draw) - 1 > -1))
-			w->y_draw = (w->y_draw) - 1;
-		
+			if ((w->move_left) && ((w->y_draw) - 1 > -1))
+				w->y_draw = (w->y_draw) - 1;
 
 
-		if(w->need_to_move) 
-		{
-			mWorld.makeTurn(w);
-			++cnt;
+
+			if (w->need_to_move)
+			{
+				mWorld.makeTurn(w);
+				++cnt;
+			}
+
+			if (mWorld.need_to_evolve(w))
+			{
+				mWorld.evolve(w);
+				std::cout << era << ": " << cnt << std::endl;
+
+				fout << era << " " << cnt << std::endl;
+
+				cnt = 0;
+				++era;
+
+			}
 		}
-		
-		if (mWorld.need_to_evolve(w))
+}
+
+void God::run(WorldSize* w)
+{
+	for (long long n = 0;;)        // Namber // progress //
+	{
+
+		for (long long pr = 0; ; ++pr)
 		{
-			mWorld.evolve(w);
-			std::cout << era << ": " << cnt << std::endl;
+			if (w->need_to_draw) mWindow.draw_1(mWorld.getPresentation(),w);
+			
+			if (w->need_to_pause) for (int i = 0; i < 7e5; i++) {}
 
-			fout << era << " " << cnt << std::endl;
+			//Pair<int> a;//= Event::mouse();
+			//std::cout << a.x << " " << a.y << '\n';
 
-			cnt = 0;
-			++era;
-						
+			Event C;
+			C.mouse();
+
+			mWorld.makeTurn(w);
+			if (mWorld.need_to_evolve(w))
+			{
+				mWorld.evolve(w);
+				std::cout  << pr << '\n';    ///       << n   << ": " 
+				pr = 0;
+				n++;
+			}
 		}
 	}
 }
+
+
 

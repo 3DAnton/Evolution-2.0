@@ -420,7 +420,7 @@ std::vector<Gui::EventType> Gui::get_events(WorldSize* w)
                     result.push_back(Gui::EventType::RESET_SCALE);
                     break;
                 }
-                case sf::Keyboard::Key::Tab:
+                case sf::Keyboard::Key::Escape:
                 {
                     result.push_back(Gui::EventType::CLOSE);
                     break;
@@ -433,27 +433,65 @@ std::vector<Gui::EventType> Gui::get_events(WorldSize* w)
     return result;
 }
 
-sf::VertexArray Gui::zad()
+sf::VertexArray Gui::graph()
 {
-    int n = 0, pr = 0;
+    int n = 0, pr = 0, kf = 20, del = 1080;
     std::vector<int> Vec;
 
     fin.open("out.out");
     while (fin >> n)
     {
         fin >> pr;
-        Vec.push_back(pr/10);
+        if (pr > del)
+        {
+            del = pr;
+        }
+        Vec.push_back(pr);
     }
+    del /= 1080;
     fin.close();
 
-    sf::VertexArray lines(sf::Lines, Vec.size());
-    lines[0].position = sf::Vector2f(0, 1080);
+    sf::VertexArray lines(sf::Lines, Vec.size() * 2 + Vec.size() / kf * 2 + 2);
 
-    for (int i = 1; i < Vec.size(); ++i)
-    {
-        lines[i].position = sf::Vector2f(i, 1080 - Vec[i]);
+    if (Vec.size() > 1920) {
+        Vec.erase(Vec.begin(), Vec.end() - 1920);
+        lines[Vec.size() - 1].position = sf::Vector2f(1920, 1080);
     }
+
+    int i = 1, k = 1;
+    lines[0].position = sf::Vector2f(0, 1080);
+    for (; i < 2 * Vec.size() - 1; i += 2, k++)
+    {
+        lines[i].position = sf::Vector2f(k, 1080 - Vec[k] / del);
+        lines[i + 1].position = sf::Vector2f(k, 1080 - Vec[k] / del);
+    }
+    lines[2 * Vec.size() - 1].position = sf::Vector2f(k - 1, 1080 - Vec[k - 1] / del);
+    /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// ///
+
+    int md;
+    lines[2 * Vec.size()].position = sf::Vector2f(0, 1080 - Vec[0] / del);
+    lines[2 * Vec.size()].color = sf::Color::Red;
+    i += 2;
+
+    for (int j = 0; i < (Vec.size() * 2 + Vec.size() / kf * 2); i += 2, j++)
+    {
+        md = 0;
+        for (; j % kf < kf - 1; ++j)
+        {
+            md += Vec[j] / del;
+        }
+
+        lines[i].position = sf::Vector2f(j, 1080 - md / kf);
+        lines[i].color = sf::Color::Red;
+        lines[i + 1].position = sf::Vector2f(j, 1080 - md / kf);
+        lines[i + 1].color = sf::Color::Red;
+    }
+    lines[i].position = sf::Vector2f(Vec.size(), 1080 - ((Vec[Vec.size() - 1] + Vec[Vec.size() - 2]) / 2) / del);
+    lines[i].color = sf::Color::Red;
+    /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// ///
+
     return lines;
+
 };
 
 void Gui::draw_graph(sf::VertexArray asd)

@@ -41,7 +41,7 @@ public:
 	std::vector<Gui::EventType> get_events(WorldSize*);
 	void draw_graph(sf::VertexArray asd);
 	void draw_1(std::vector<std::vector<Object::ObjectType>> result,WorldSize* w);
-	sf::VertexArray zad();
+	sf::VertexArray graph();
 	std::ifstream fin;
 	bool isAppClosed();
 	void draw_2(std::vector<std::vector<Object::ObjectType>> result, WorldSize* w);
