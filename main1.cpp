@@ -2,7 +2,7 @@
 #include "Map.h";
 #include "God.h";
 #include "sas.hpp";
-
+#include "windows.h"
 #include <SFML/Graphics.hpp>
 
 #include <filesystem>
@@ -103,6 +103,12 @@ void reading_keyboard(sf::Event event, std::string& s,bool&vod_1,bool& vod_2,int
 			x = x * 10 + 9;
 			break;
 		}
+		case sf::Keyboard::Key::BackSpace:
+		{
+			s.erase(s.size()-1);
+			x = x / 10;
+			break;
+		}
 		}
 	}
 }
@@ -112,7 +118,7 @@ int first_reading(WorldSize* w)
 	bool vod_x = true, vod_y = false, vod_bot = false, vod_food = false;
 	bool vod_poison=false,vod_wall=false;
 	bool vod_bot_need_evoule = false,vod_cord=false;
-	sf::RenderWindow first_mes(sf::VideoMode(800, 600), "My window");
+	sf::RenderWindow first_mes(sf::VideoMode(1000, 800), "My window");
 	sf::Event event;
 
 	sf::Font font;//шрифт 
@@ -138,12 +144,12 @@ int first_reading(WorldSize* w)
 				reading_keyboard(event, s_x, vod_x, vod_y, w->x);
 			std::cout << (w->x)<<std::endl;
 			first_mes.clear();
-			sf::Text text(s_x, font, 20);
-			sf::Text text_2("How much world?", font, 20);
-			text.setPosition(0,0);
-			text_2.setPosition(50,50);
-			first_mes.draw(text_2);
-			first_mes.draw(text);
+			sf::Text text_x(s_x, font, 20);
+			sf::Text text_1("How much world?", font, 20);
+			text_1.setPosition(0,0);
+			text_x.setPosition(0,20);
+			first_mes.draw(text_1);
+			first_mes.draw(text_x);
 			first_mes.display();
 		}
 
@@ -482,10 +488,15 @@ int main()
 {
 	
 	WorldSize w;
-	first_reading(&w);
+	
 	//if(!(w.otkladka)) first_message(&w);
+	if(!(w.otkladka)) first_reading(&w);
 	int s1 = ((w.x) - 1) * ((w.y) - 1), s2 = (w.amount_bot) + (w.amount_food) + (w.amount_poison) + (w.amount_wall);
-	if (s1 < s2) w.need_to_error = 1;
+	if (s1 < s2)
+	{
+		std::cout << "Map is crowded";
+		return 1;
+	}
 	if (w.need_to_error)
 	{
 		std::cout << "ERROR";
