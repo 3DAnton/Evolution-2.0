@@ -16,7 +16,6 @@ struct WorldSize
 	bool mas_1 = false, mas_2 = false, mas_3 = false,mas_4=true;
 	bool move_up = false, move_down = false, move_right = false, move_left = false;
 	bool need_to_error = false;
-	char pause = 'X';
 };
 
 
