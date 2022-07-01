@@ -35,6 +35,7 @@ public:
 		CLOSE=18
 	};
 	void Close();
+	void draw_4(std::vector<std::vector<Object::ObjectType>> result, WorldSize* w);
 	void draw_3(std::vector<std::vector<Object::ObjectType>> result, WorldSize* w);
 	Gui(int x, int y);
 	~Gui();
@@ -54,5 +55,7 @@ private:
 
 
 #endif // !GUI_H
+
+
 
 
